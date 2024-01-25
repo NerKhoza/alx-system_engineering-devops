@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#The content of the current directory
+
+
+echo "Content of the current directory (excluding hidden files):"
+echo "--------------------------------------------------------"
+
+for file in *; do
+    # Check if the file is not hidden (does not start with a dot)
+    if [[ ! "$file" =~ ^\. ]]; then
+        # Extract the part of the name after the first dash
+        name_part=$(echo "$file" | cut -d'-' -f2-)
+        echo "$name_part"
+    fi
+done
+
+echo "--------------------------------------------------------"
