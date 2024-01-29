@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Display a list of currently running processes
+echo "List of Currently Running Processes:"
+
+# Display process hierarchy using pstree
+pstree
+
+# Display all processes for all users
+echo -e "\nDetailed Process Information:"
+
+# Display process information using ps
+ps auxf
