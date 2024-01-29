@@ -1,26 +1,9 @@
 #!/usr/bin/env bash
 #Bash script that stops 4-to_infinity_and_beyond process
 
-if pgrep -x "4-to_infinity_and_beyond" > /dev/null
+id=$(pgrep "bash ./4-to_infinity_and_beyond" -f)
+
+if [ -n "$id" ] 
 then
-    # Get the PID of the process
-    pid=$(pgrep -x "4-to_infinity_and_beyond")
-    
-    # Send SIGTERM signal to gracefully stop the process
-    kill -15 "$pid"
-    
-    # Wait for the process to exit (you can adjust the timeout as needed)
-    sleep 5
-    
-    # Check if the process is still running
-    if pgrep -x "4-to_infinity_and_beyond" > /dev/null
-    then
-        # If the process is still running, send SIGKILL to forcefully terminate it
-        kill -9 "$pid"
-        echo "Process forcefully terminated."
-    else
-        echo "Process gracefully stopped."
-    fi
-else
-    echo "Process not running."
+	kill -15 "$id"
 fi
