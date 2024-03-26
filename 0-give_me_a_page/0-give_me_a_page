@@ -1,20 +1,4 @@
-FROM ubuntu:16.04
-
-RUN apt-get update && apt-get install -y apache2
-
-COPY index.html /var/www/html/
-
-EXPOSE 80
-
-CMD ["apache2ctl", "-D", "FOREGROUND"]
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hello Holberton</title>
-</head>
-<body>
-    <h1>Hello Holberton</h1>
-</body>
-</html>
-
+#!/usr/bin/env bash
+# Start Apache so as to return a
+# page conatining Hello Holberton
+service apache2 start
