@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# scirt that must be running as nginx user
+
+if pgrep nginx >/dev/null 2>&1; then
+  echo "Nginx is already running."
+  exit 0
+fi
+
+if ! command -v nginx >/dev/null 2>&1; then
+  echo "Installing nginx..."
+  apt-get update
+  apt-get install nginx -y
+fi
+
+sed -i 's/user\s\+.*;/user nginx nginx;/g' /etc/nginx/nginx.conf
+
+sed -i 's/listen\s\+80;/listen 8080;/g' /etc/nginx/sites-available/default
+
+echo "Restarting nginx..."
+service nginx restart
+
+if pgrep -u nginx nginx >/dev/null 2>&1 && nc -z 0 8080 >/dev/null 2>&1; then
+  echo "Nginx is now running as nginx user and listening on port 8080."
+else
+  echo "Failed to configure nginx."
+fi
+
